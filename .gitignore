@@ -1,0 +1,16 @@
+/Library/
+/Temp/
+/Assembly-CSharp-Editor-vs.csproj
+/Assembly-CSharp-Editor.csproj
+/Assembly-CSharp-vs.csproj
+/Assembly-CSharp.csproj
+/UtilityScripts-csharp.sln
+/UtilityScripts.sln
+/Assembly-UnityScript-vs.unityproj
+/Assembly-UnityScript.unityproj
+/UtilityScripts.userprefs
+/Build/
+*.csproj
+*.unityproj
+/UtilityScripts-csharp.v12.suo
+*.v12.suo
