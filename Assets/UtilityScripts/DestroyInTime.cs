@@ -14,7 +14,7 @@ public class DestroyInTime: MonoBehaviour
 
 	void Update()
 	{
-		if(Time.time < EndTime)
+		if(Time.time > EndTime)
 		{
 			gameObject.Recycle();
 		}
