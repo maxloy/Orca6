@@ -3,6 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 
+
+public static class GameObjectExtensions
+{
+	public static T AddOrGetComponent<T>(this GameObject go) where T : Component
+	{
+		var exists = go.GetComponent<T>();
+		if (exists != null)
+			return exists;
+		else
+			return go.AddComponent<T>();
+	}
+}
+
 public static class TransformExtensions
 {
 	public static void LocalPRSReset(this Transform t)
@@ -10,6 +23,14 @@ public static class TransformExtensions
 		t.transform.localPosition = Vector3.zero;
 		t.transform.localRotation = Quaternion.identity;
 		t.transform.localScale = Vector3.one;
+	}
+}
+
+public static class ComponentExtensions
+{
+	public static T AddOrGetComponent<T>(this Component c) where T : Component
+	{
+		return c.gameObject.AddOrGetComponent<T>();
 	}
 }
 
