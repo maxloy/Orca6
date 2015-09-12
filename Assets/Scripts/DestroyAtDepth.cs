@@ -9,7 +9,8 @@ public class DestroyAtDepth : MonoBehaviour
 	{
 		if(transform.position.y < MinY)
 		{
-
+			GameManager.Instance.GoToState(GameManager.State.Loss);
+			gameObject.SetActive(false);
 		}
 	}
 }
