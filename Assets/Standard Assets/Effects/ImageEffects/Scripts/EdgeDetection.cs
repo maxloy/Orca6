@@ -26,6 +26,7 @@ namespace UnityStandardAssets.ImageEffects
         public float sampleDist = 1.0f;
         public float edgesOnly = 0.0f;
         public Color edgesOnlyBgColor = Color.white;
+		public Color edgeColor = Color.green;
 
         public Shader edgeDetectShader;
         private Material edgeDetectMaterial = null;
@@ -82,6 +83,7 @@ namespace UnityStandardAssets.ImageEffects
             edgeDetectMaterial.SetVector ("_BgColor", edgesOnlyBgColor);
             edgeDetectMaterial.SetFloat ("_Exponent", edgeExp);
             edgeDetectMaterial.SetFloat ("_Threshold", lumThreshold);
+			edgeDetectMaterial.SetColor("_LineColor", edgeColor);
 
             Graphics.Blit (source, destination, edgeDetectMaterial, (int) mode);
         }

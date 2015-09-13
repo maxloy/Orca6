@@ -29,6 +29,7 @@ Shader "Hidden/EdgeDetect" {
 	uniform half _BgFade;
 	uniform half _SampleDistance;
 	uniform float _Exponent;
+	uniform half4 _LineColor;
 
 	uniform float _Threshold;
 
@@ -247,8 +248,11 @@ Shader "Hidden/EdgeDetect" {
 		
 		edge *= CheckSame(sample1.xy, DecodeFloatRG(sample1.zw), sample2);
 		edge *= CheckSame(sample3.xy, DecodeFloatRG(sample3.zw), sample4);
-
-		return edge * lerp(tex2D(_MainTex, i.uv[0]), _BgColor, _BgFade);
+		
+		if(edge > 0)
+			return edge * lerp(tex2D(_MainTex, i.uv[0]), _BgColor, _BgFade);
+		else
+			return _LineColor;
 	}
 	
 	half4 fragThin (v2f i) : SV_Target
@@ -268,8 +272,11 @@ Shader "Hidden/EdgeDetect" {
 		
 		edge *= CheckSame(centerNormal, centerDepth, sample1);
 		edge *= CheckSame(centerNormal, centerDepth, sample2);
-			
-		return edge * lerp(original, _BgColor, _BgFade);
+		
+		if(edge > 0)
+			return edge * lerp(original, _BgColor, _BgFade);
+		else
+			return _LineColor;
 	}
 	
 	ENDCG 
