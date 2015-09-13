@@ -7,7 +7,9 @@ public class RotateWithInput : MonoBehaviour
 
 	void Update()
 	{
-		transform.Rotate(Vector3.forward, -Input.GetAxis("Horizontal") * RotationSpeed);
-		transform.Rotate(Vector3.right, Input.GetAxis("Vertical") * RotationSpeed);
+		Vector3 r = transform.rotation.eulerAngles;
+		r.z -= Input.GetAxis("Horizontal") * RotationSpeed;
+		r.x += Input.GetAxis("Vertical") * RotationSpeed;
+		transform.rotation = Quaternion.Euler(r);
 	}
 }
