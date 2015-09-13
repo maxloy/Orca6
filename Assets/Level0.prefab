@@ -358,7 +358,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65dd9de23e21b2040a7b4048159e9894, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MinY: -20
+  MinY: -100
 --- !u!114 &11495102
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1523,6 +1523,10 @@ Prefab:
       value: 
       objectReference: {fileID: 13400000, guid: 478f17df580bdcf418c073a22d389e29,
         type: 2}
+    - target: {fileID: 0}
+      propertyPath: MinY
+      value: -100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 126760}
