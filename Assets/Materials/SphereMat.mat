@@ -8,8 +8,8 @@ Material:
   m_PrefabInternal: {fileID: 0}
   m_Name: SphereMat
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 5
+  m_ShaderKeywords: _EMISSION
+  m_LightmapFlags: 1
   m_CustomRenderQueue: -1
   stringTagMap: {}
   m_SavedProperties:
@@ -102,7 +102,7 @@ Material:
       data:
         first:
           name: _Glossiness
-        second: .5
+        second: .694999993
       data:
         first:
           name: _BumpScale
@@ -126,13 +126,13 @@ Material:
       data:
         first:
           name: _Metallic
-        second: .391000003
+        second: .628000021
     m_Colors:
       data:
         first:
           name: _EmissionColor
-        second: {r: 0, g: 0, b: 0, a: 1}
+        second: {r: .203935981, g: .301470578, b: .301470578, a: 1}
       data:
         first:
           name: _Color
-        second: {r: .0507136583, g: .985294104, b: .250520438, a: 1}
+        second: {r: .618133664, g: .757352948, b: .740070581, a: 1}
