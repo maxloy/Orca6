@@ -6,6 +6,7 @@ public class GameManager : Singleton<GameManager>
 
 	public enum State
 	{
+		Intro,
 		Playing,
 		Victory,
 		Loss
@@ -17,6 +18,7 @@ public class GameManager : Singleton<GameManager>
 
 	public List<GameObject> Levels = new List<GameObject>();
 
+	public List<GameObject> IntroObjs = new List<GameObject>();
 	public List<GameObject> PlayingObjs = new List<GameObject>();
 	public List<GameObject> VictoryObjs = new List<GameObject>();
 	public List<GameObject> LossObjs = new List<GameObject>();
@@ -28,6 +30,7 @@ public class GameManager : Singleton<GameManager>
 	{
 		stateObjs = new Dictionary<State, List<GameObject>>()
 		{
+			{State.Intro, IntroObjs },
 			{State.Playing, PlayingObjs },
 			{State.Victory, VictoryObjs },
 			{State.Loss, LossObjs }
@@ -38,20 +41,26 @@ public class GameManager : Singleton<GameManager>
 			level.SetActive(false);
 		}
 
-		GoToLevel(0);
-		GoToState(State.Playing);
+		GoToLevel(-1);
+		GoToState(State.Intro);
 	}
 
 	public void GoToLevel(int level)
 	{
-		if (level < 0 || level >= Levels.Count)
+		if (level < -1 || level >= Levels.Count)
 		{
 			throw new System.IndexOutOfRangeException();
 		}
 
-		Destroy(CurrentLevel);
-		CurrentLevel = Instantiate(Levels[level]) as GameObject;
-		CurrentLevel.SetActive(true);
+		if(CurrentLevel != null)
+			Destroy(CurrentLevel);
+
+		if (level != -1)
+		{
+			CurrentLevel = Instantiate(Levels[level]) as GameObject;
+			CurrentLevel.SetActive(true);
+		}
+
 		CurrentLevelIndex = level;
 	}
 
@@ -64,6 +73,15 @@ public class GameManager : Singleton<GameManager>
 			{
 				obj.SetActive(state == pair.Key);
 			}
+		}
+	}
+
+	void Update()
+	{
+		if(Input.GetButton("Start"))
+		{
+			GoToLevel(-1);
+			GoToState(State.Intro);
 		}
 	}
 }
