@@ -80,8 +80,7 @@ public class GameManager : Singleton<GameManager>
 	{
 		if(Input.GetButton("Start"))
 		{
-			GoToLevel(-1);
-			GoToState(State.Intro);
+			Application.LoadLevel(Application.loadedLevel);
 		}
 	}
 }
