@@ -10,7 +10,6 @@ public class EndZone : MonoBehaviour
 		{
 			GameManager.Instance.GoToState(GameManager.State.Victory);
 
-			var body = other.GetComponent<Rigidbody>();
 			var particles = Instantiate(Resources.Load("VictoryParticles") as GameObject) as GameObject;
 			particles.transform.position = other.transform.position;
 			particles.transform.forward = Vector3.up;
