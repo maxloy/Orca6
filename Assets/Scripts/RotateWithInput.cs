@@ -3,6 +3,9 @@ using System.Collections;
 
 public class RotateWithInput : MonoBehaviour
 {
+
+	public Transform RotateSource;
+
 	public float RotationSpeed = 1;
 
 	public Space space = Space.World;
@@ -17,6 +20,9 @@ public class RotateWithInput : MonoBehaviour
 
 	void Start()
 	{
+		if(RotateSource == null)
+			RotateSource = transform;
+
 		if(space == Space.World)
 		{
 			horizontalAngle = Vector3.forward;
@@ -32,8 +38,8 @@ public class RotateWithInput : MonoBehaviour
 	void Update()
 	{
 		if(X)
-			transform.Rotate(horizontalAngle, Input.GetAxis("Horizontal") * -RotationSpeed, Space.World);
+			transform.RotateAround(RotateSource.position, horizontalAngle, Input.GetAxis("Horizontal") * -RotationSpeed);
 		if(Y)
-			transform.Rotate(verticalAngle, Input.GetAxis("Vertical") * RotationSpeed, Space.World);
+			transform.RotateAround(RotateSource.position, verticalAngle, Input.GetAxis("Vertical") * RotationSpeed);
 	}
 }
