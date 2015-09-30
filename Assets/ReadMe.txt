@@ -57,6 +57,13 @@ More information on the system can be found on the website at http://www.west-ra
 ****************************************
 Changes:
 ****************************************
+v2.12
+Fixed exception bug in the spline notify system that could appear when loft layers which do not use crosssections are used.
+Added conform option to the Clone spline layer so can now easily make fences etc fit the terrain
+Added conform option to the Clone spline Rules layer so can now easily make fences etc fit the terrain
+Added conform option to the Clone spline Simple layer so can now easily make fences etc fit the terrain
+Added conform option to the Scatter spline layer so can now easily make fences etc fit the terrain
+
 v2.11
 Changes for Unity 5.1, removal of obsolete items etc.
 Fixed CrossSection lines not showing for Complex layer type.

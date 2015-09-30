@@ -171,6 +171,12 @@ public class MegaLoftLayerCloneSplineRules : MegaLoftLayerRules
 			trioff = vi;
 		}
 
+		if ( conform )
+		{
+			CalcBounds(loftverts);
+			DoConform(loft, loftverts);
+		}
+
 		return triindex;
 	}
 
@@ -188,4 +194,103 @@ public class MegaLoftLayerCloneSplineRules : MegaLoftLayerRules
 		return null;
 	}
 
+	// Conform
+	public bool conform = false;
+	public GameObject target;
+	public Collider conformCollider;
+	public float[] offsets;
+	public float[] last;
+	public float conformAmount = 1.0f;
+	public float raystartoff = 0.0f;
+	public float raydist = 10.0f;
+	public float conformOffset = 0.0f;
+	float minz = 0.0f;
+	public bool showConformParams = false;
+
+	public void SetTarget(GameObject targ)
+	{
+		target = targ;
+
+		if ( target )
+		{
+			conformCollider = target.GetComponent<Collider>();
+		}
+	}
+
+	void CalcBounds(Vector3[] verts)
+	{
+		minz = verts[0].y;
+		for ( int i = 1; i < verts.Length; i++ )
+		{
+			if ( verts[i].y < minz )
+				minz = verts[i].y;
+		}
+	}
+
+	public void InitConform(Vector3[] verts)
+	{
+		if ( offsets == null || offsets.Length != verts.Length )
+		{
+			offsets = new float[verts.Length];
+			last = new float[verts.Length];
+
+			for ( int i = 0; i < verts.Length; i++ )
+				offsets[i] = verts[i].y - minz;
+		}
+
+		// Only need to do this if target changes, move to SetTarget
+		if ( target )
+		{
+			//MeshFilter mf = target.GetComponent<MeshFilter>();
+			//targetMesh = mf.sharedMesh;
+			conformCollider = target.GetComponent<Collider>();
+		}
+	}
+
+	// We could do a bary centric thing if we grid up the bounds
+	void DoConform(MegaShapeLoft loft, Vector3[] verts)
+	{
+		InitConform(verts);
+
+		if ( target && conformCollider )
+		{
+			Matrix4x4 loctoworld = transform.localToWorldMatrix;
+
+			Matrix4x4 tm = loctoworld;	// * worldtoloc;
+			Matrix4x4 invtm = tm.inverse;
+
+			Ray ray = new Ray();
+			RaycastHit hit;
+
+			float ca = conformAmount * loft.conformAmount;
+
+			// When calculating alpha need to do caps sep
+			for ( int i = 0; i < verts.Length; i++ )
+			{
+				Vector3 origin = tm.MultiplyPoint(verts[i]);
+				origin.y += raystartoff;
+				ray.origin = origin;
+				ray.direction = Vector3.down;
+
+				//loftverts[i] = loftverts1[i];
+
+				if ( conformCollider.Raycast(ray, out hit, raydist) )
+				{
+					Vector3 lochit = invtm.MultiplyPoint(hit.point);
+
+					verts[i].y = Mathf.Lerp(verts[i].y, lochit.y + offsets[i] + conformOffset, ca);	//conformAmount);
+					last[i] = verts[i].y;
+				}
+				else
+				{
+					Vector3 ht = ray.origin;
+					ht.y -= raydist;
+					verts[i].y = last[i];	//lochit.z + offsets[i] + offset;
+				}
+			}
+		}
+		else
+		{
+		}
+	}
 }

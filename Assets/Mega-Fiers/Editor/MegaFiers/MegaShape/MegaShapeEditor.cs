@@ -1520,10 +1520,10 @@ public class MegaShapeEditor : Editor
 	{
 		Mesh clonemesh = new Mesh();
 		clonemesh.vertices = mesh.vertices;
-#if UNITY_5_0 || UNITY_5_1
+#if UNITY_5_0 || UNITY_5_1 || UNITY_5_2
 		clonemesh.uv2 = mesh.uv2;
 #else
-		clonemesh.uv2 = mesh.uv2;
+		clonemesh.uv1 = mesh.uv1;
 		clonemesh.uv2 = mesh.uv2;
 #endif
 		clonemesh.uv = mesh.uv;

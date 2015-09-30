@@ -156,13 +156,16 @@ public class MegaLoftLayerSimple : MegaLoftLayerBase
 
 	public virtual void Notify(MegaSpline spline, int reason)
 	{
-		if ( layerPath && layerPath.splines != null )
+		if ( layerPath && layerPath.splines != null && layerSection && layerSection.splines != null )
 		{
-			if ( curve < layerPath.splines.Count )
+			if ( curve < layerPath.splines.Count && crosscurve < layerSection.splines.Count )
 			{
+				//Debug.Log("curve " + curve + " crosscurve " + crosscurve + " " + layerPath.splines.Count);
 				if ( layerPath.splines[curve] == spline || layerSection.splines[crosscurve] == spline )
 				{
+					//Debug.Log("2");
 					MegaShapeLoft loft = GetComponent<MegaShapeLoft>();
+					//Debug.Log("3");
 					loft.rebuild = true;
 					loft.BuildMeshFromLayersNew();
 				}

@@ -1,4 +1,4 @@
-﻿
+
 using UnityEngine;
 using UnityEditor;
 
@@ -144,6 +144,26 @@ public class MegaLoftLayerCloneSplineEditor : MegaLoftLayerBaseEditor
 					//EditorGUILayout.EndVertical();
 				}
 				MegaFoldOut.End(layer.showendparams);
+
+				layer.showConformParams = MegaFoldOut.Start("Conform Params", layer.showConformParams, new Color(1.0f, 1.0f, 0.5f));
+
+				if ( layer.showConformParams )
+				{
+					layer.conform = EditorGUILayout.BeginToggleGroup("Conform", layer.conform);
+					GameObject contarget = (GameObject)EditorGUILayout.ObjectField("Target", layer.target, typeof(GameObject), true);
+
+					if ( contarget != layer.target )
+					{
+						layer.SetTarget(contarget);
+					}
+					layer.conformAmount = EditorGUILayout.Slider("Amount", layer.conformAmount, 0.0f, 1.0f);
+					layer.raystartoff = EditorGUILayout.FloatField("Ray Start Off", layer.raystartoff);
+					layer.conformOffset = EditorGUILayout.FloatField("Conform Offset", layer.conformOffset);
+					layer.raydist = EditorGUILayout.FloatField("Ray Dist", layer.raydist);
+					EditorGUILayout.EndToggleGroup();
+				}
+
+				MegaFoldOut.End(layer.showConformParams);
 			}
 
 			//EditorGUILayout.EndVertical();
